@@ -1854,7 +1854,7 @@ def csvData(M):
     row=row+[sysData[M]['GrowthRate']['current']*sysData[M]['Zigzag']['ON']]
 
 
-	#Following can be uncommented if you are recording ALL spectra for e.g. biofilm experiments
+    #Following can be uncommented if you are recording ALL spectra for e.g. biofilm experiments
     #bands=['nm410' ,'nm440','nm470','nm510','nm550','nm583','nm620','nm670','CLEAR','NIR']
     #items= ['LEDA','LEDB','LEDC','LEDD','LEDE','LEDF','LEDG','LASER650']
     #for item in items:
@@ -1978,8 +1978,8 @@ def RegulateOD(M):
     elif len(sysData[M]['time']['record']) < 2:
         Pump1=0 #In first few cycles we do precisely no pumping.
         addTerminal(M, "Warning: Tried to calculate time elapsed with fewer than two " +\
-    				"timepoints recorded. If you see this message a lot, there may be " +\
-    				"a more serious problem.")
+                    "timepoints recorded. If you see this message a lot, there may be " +\
+                    "a more serious problem.")
     else:
         ODPast=sysData[M]['OD']['record'][-1]
         timeElapsed=((sysData[M]['time']['record'][-1])-(sysData[M]['time']['record'][-2]))/60.0 #Amount of time betwix measurements in minutes
