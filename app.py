@@ -824,6 +824,7 @@ def PumpModulation(M,item):
     Time2=time.perf_counter()
     elapsedTime=Time2-Time1
     elapsedTimeSeconds=round(elapsedTime,5)
+    print(str(datetime.now()) + " Pump on device " + str(M) + " on for " + str(elapsedTimeSeconds*1000) + "ms")
     Offtime=cycletime-elapsedTimeSeconds
     if (Offtime>0.0):
         time.sleep(Offtime)
