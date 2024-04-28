@@ -785,7 +785,6 @@ def PumpModulation(M,item):
     if (sysData[M][item]['ON']==0):
         return
 
-    Time1=datetime.now()
     cycletime=sysData[M]['Experiment']['cycleTime']*1.05 #We make this marginally longer than the experiment cycle time to avoid too much chaos when you come back around to pumping again.
 
     Ontime=cycletime*abs(sysData[M][item]['target'])
@@ -806,8 +805,13 @@ def PumpModulation(M,item):
         setPWM(M,'Pumps',sysItems[item]['In1'],0.0*float(sysData[M][item]['ON']),0)
         setPWM(M,'Pumps',sysItems[item]['In2'],1.0*float(sysData[M][item]['ON']),0)
         sysDevices[M][item]['active']=0
+    Time1=time.perf_counter()
 
-    time.sleep(Ontime)
+    if Ontime < 0.5:
+        while time.perf_counter() < Time1 + Ontime:
+            pass
+    else:
+        time.sleep(Ontime)
 
     if(abs(sysData[M][item]['target'])!=1 and currentThread==sysDevices[M][item]['threadCount']): #Turning off pumps at appropriate time.
         sysDevices[M][item]['active']=1
@@ -817,9 +821,9 @@ def PumpModulation(M,item):
         setPWM(M,'Pumps',sysItems[item]['In2'],0.0*float(sysData[M][item]['ON']),0)
         sysDevices[M][item]['active']=0
 
-    Time2=datetime.now()
+    Time2=time.perf_counter()
     elapsedTime=Time2-Time1
-    elapsedTimeSeconds=round(elapsedTime.total_seconds(),2)
+    elapsedTimeSeconds=round(elapsedTime,5)
     Offtime=cycletime-elapsedTimeSeconds
     if (Offtime>0.0):
         time.sleep(Offtime)
