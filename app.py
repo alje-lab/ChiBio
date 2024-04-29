@@ -817,8 +817,6 @@ def PumpModulation(M,item):
         sysDevices[M][item]['active']=1
         setPWM(M,'Pumps',sysItems[item]['In1'],0.0*float(sysData[M][item]['ON']),0)
         setPWM(M,'Pumps',sysItems[item]['In2'],0.0*float(sysData[M][item]['ON']),0)
-        setPWM(M,'Pumps',sysItems[item]['In1'],0.0*float(sysData[M][item]['ON']),0)
-        setPWM(M,'Pumps',sysItems[item]['In2'],0.0*float(sysData[M][item]['ON']),0)
         sysDevices[M][item]['active']=0
 
     Time2=time.perf_counter()
